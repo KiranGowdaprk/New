@@ -3,10 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>EduLearn - Premium E-Learning Platform</title>
+    <meta name="description" content="InsurancePro - Premium insurance solutions with AI-powered protection. Get instant quotes and smart coverage tailored to your needs.">
+    <meta name="keywords" content="insurance, smart insurance, AI insurance, health insurance, life insurance, auto insurance">
+    <meta name="author" content="InsurancePro">
+    <title>InsurancePro | Smart Insurance for Modern Lives</title>
+    
+    <!-- Google Fonts - Modern Typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://js.stripe.com/v3/"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
     <style>
         * {
             margin: 0;
@@ -14,263 +24,550 @@
             box-sizing: border-box;
         }
 
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --accent-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --dark-gradient: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            
+            --primary-color: #6366f1;
+            --secondary-color: #8b5cf6;
+            --accent-color: #06b6d4;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+            
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+            --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+            
+            --border-radius-sm: 0.5rem;
+            --border-radius-md: 1rem;
+            --border-radius-lg: 1.5rem;
+            --border-radius-xl: 2rem;
+        }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: #333;
-            line-height: 1.6;
+            font-family: 'Inter', sans-serif;
+            background: var(--gray-50);
+            color: var(--gray-800);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--gray-100);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, var(--color-1, #6366f1), var(--color-2, #8b5cf6));
+            border-radius: 10px;
+        }
+
+        /* Glass Morphism */
+        .glass {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         /* Navigation */
         .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            transition: all 0.4s ease;
+            padding: 1rem 0;
+        }
+
+        .navbar.scrolled {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            padding: 1rem 2rem;
+            box-shadow: var(--shadow-lg);
+            padding: 0.75rem 0;
         }
 
         .nav-container {
-            max-width: 1200px;
+            max-width: 1280px;
             margin: 0 auto;
+            padding: 0 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
         }
 
         .logo {
-            font-size: 1.8rem;
-            font-weight: bold;
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.75rem;
+            font-weight: 800;
+            background: var(--logo-gradient, linear-gradient(135deg, #667eea, #764ba2));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--gray-700);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--link-gradient, linear-gradient(135deg, #667eea, #764ba2));
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--active-color, #6366f1);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--gray-700);
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 0.75rem 1.75rem;
+            border-radius: var(--border-radius-md);
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            border: none;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .btn-primary {
+            background: var(--btn-gradient, linear-gradient(135deg, #667eea, #764ba2));
+            color: white;
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--btn-secondary-color, #6366f1);
+            border: 1px solid var(--gray-200);
+        }
+
+        .btn-secondary:hover {
+            background: var(--gray-50);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-outline:hover {
+            background: white;
+            color: var(--btn-outline-color, #6366f1);
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            background: var(--hero-gradient, linear-gradient(135deg, #667eea 0%, #764ba2 100%));
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            padding-top: 80px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: moveBackground 20s linear infinite;
+        }
+
+        @keyframes moveBackground {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        .hero-content {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: white;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .hero-text p {
+            font-size: 1.125rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: var(--border-radius-md);
+            padding: 1rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: white;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: 0.25rem;
+        }
+
+        .hero-image {
+            position: relative;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* Sections */
+        .section {
+            padding: 6rem 0;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: var(--badge-bg, linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1)));
+            border-radius: var(--border-radius-xl);
+            color: var(--badge-color, #6366f1);
+            font-weight: 600;
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--gray-900);
+            margin-bottom: 1rem;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .section-subtitle {
+            font-size: 1.125rem;
+            color: var(--gray-600);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Services Grid */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: var(--border-radius-lg);
+            padding: 2rem;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--card-gradient, linear-gradient(135deg, #667eea, #764ba2));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: 0;
+        }
+
+        .service-card:hover::before {
+            opacity: 0.05;
+        }
+
+        .service-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--icon-bg, linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1)));
+            border-radius: var(--border-radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .service-icon i {
+            font-size: 2rem;
+            background: var(--icon-gradient, linear-gradient(135deg, #667eea, #764ba2));
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
         }
 
-        .nav-links {
-            display: flex;
-            gap: 1.5rem;
-            align-items: center;
-            flex-wrap: wrap;
+        .service-card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            position: relative;
+            z-index: 1;
         }
 
-        .nav-links a {
-            text-decoration: none;
-            color: #555;
-            font-weight: 500;
-            transition: color 0.3s;
-            cursor: pointer;
+        .service-card p {
+            color: var(--gray-600);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
         }
 
-        .nav-links a:hover {
-            color: #667eea;
+        .service-price {
+            font-size: 1.25rem;
+            font-weight: 700;
+            background: var(--price-gradient, linear-gradient(135deg, #667eea, #764ba2));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            position: relative;
+            z-index: 1;
         }
 
-        .btn {
-            padding: 0.5rem 1.5rem;
-            border: none;
-            border-radius: 25px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s;
-            font-size: 0.9rem;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-        }
-
-        .btn-outline {
-            background: transparent;
-            border: 2px solid #667eea;
-            color: #667eea;
-        }
-
-        .btn-outline:hover {
-            background: #667eea;
-            color: white;
-        }
-
-        /* Main Container */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-
-        /* Hero Section */
-        .hero {
-            text-align: center;
-            padding: 4rem 2rem;
-            background: white;
-            border-radius: 20px;
-            margin: 2rem auto;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-
-        .hero h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            color: #333;
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            color: #666;
-            margin-bottom: 2rem;
-        }
-
-        /* Course Grid */
-        .courses-grid {
+        /* Testimonials */
+        .testimonials-slider {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 2rem;
-            margin-top: 2rem;
         }
 
-        .course-card {
+        .testimonial-card {
             background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
-            cursor: pointer;
-        }
-
-        .course-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .course-thumbnail {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-
-        .course-info {
-            padding: 1.5rem;
-        }
-
-        .course-title {
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
-            color: #333;
-        }
-
-        .course-instructor {
-            color: #666;
-            font-size: 0.9rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .course-price {
-            font-size: 1.3rem;
-            font-weight: bold;
-            color: #667eea;
-            margin: 1rem 0;
-        }
-
-        .rating {
-            color: #ffc107;
-            margin-bottom: 1rem;
-        }
-
-        /* Dashboard */
-        .dashboard {
-            background: white;
-            border-radius: 20px;
+            border-radius: var(--border-radius-lg);
             padding: 2rem;
-            margin-top: 2rem;
-        }
-
-        .dashboard-tabs {
-            display: flex;
-            gap: 1rem;
-            border-bottom: 2px solid #eee;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-        }
-
-        .tab-btn {
-            padding: 0.75rem 1.5rem;
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-weight: 600;
-            color: #666;
-            transition: all 0.3s;
-        }
-
-        .tab-btn.active {
-            color: #667eea;
-            border-bottom: 2px solid #667eea;
-        }
-
-        .enrolled-course {
-            border: 1px solid #eee;
-            border-radius: 10px;
-            padding: 1rem;
-            margin-bottom: 1rem;
-        }
-
-        .progress-bar {
-            width: 100%;
-            height: 8px;
-            background: #eee;
-            border-radius: 4px;
-            overflow: hidden;
-            margin: 1rem 0;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            transition: width 0.3s;
-        }
-
-        /* Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.8);
-            z-index: 2000;
-            overflow-y: auto;
-        }
-
-        .modal-content {
-            background: white;
-            max-width: 800px;
-            margin: 2rem auto;
-            padding: 2rem;
-            border-radius: 20px;
+            transition: all 0.3s ease;
             position: relative;
         }
 
-        .close-modal {
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .quote-icon {
+            font-size: 3rem;
+            background: var(--quote-gradient, linear-gradient(135deg, #667eea, #764ba2));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            opacity: 0.3;
             position: absolute;
             top: 1rem;
             right: 1rem;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: #666;
+        }
+
+        .rating {
+            color: #fbbf24;
+            margin-bottom: 1rem;
+        }
+
+        .testimonial-text {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--gray-700);
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .client-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .client-avatar {
+            width: 50px;
+            height: 50px;
+            background: var(--avatar-gradient, linear-gradient(135deg, #667eea, #764ba2));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: var(--cta-gradient, linear-gradient(135deg, #1e293b 0%, #0f172a 100%));
+            border-radius: var(--border-radius-xl);
+            padding: 4rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: moveBackground 20s linear infinite;
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 2rem;
+            font-size: 1.125rem;
         }
 
         /* Forms */
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: var(--border-radius-lg);
+            padding: 2rem;
+            box-shadow: var(--shadow-xl);
+        }
+
         .form-group {
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--gray-700);
         }
 
         .form-group input,
@@ -278,1036 +575,914 @@
         .form-group textarea {
             width: 100%;
             padding: 0.75rem;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-size: 1rem;
+            border: 1px solid var(--gray-200);
+            border-radius: var(--border-radius-sm);
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s ease;
         }
 
-        /* Alert Messages */
-        .alert {
-            padding: 1rem;
-            border-radius: 8px;
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--focus-color, #6366f1);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--gray-900);
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-col h4 {
             margin-bottom: 1rem;
-            display: none;
+            font-size: 1.125rem;
         }
 
-        .alert-success {
-            background: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
+        .footer-col a {
+            color: var(--gray-300);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+            transition: color 0.3s ease;
         }
 
-        .alert-error {
-            background: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
+        .footer-col a:hover {
+            color: var(--footer-hover, #6366f1);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--social-hover, #6366f1);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--gray-400);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        /* Color Picker Button */
+        .color-picker-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: var(--shadow-lg);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            border: none;
+            font-size: 1.25rem;
+        }
+
+        .color-picker-btn:hover {
+            transform: scale(1.1);
         }
 
         /* Responsive */
         @media (max-width: 768px) {
-            .nav-container {
-                flex-direction: column;
-                gap: 1rem;
+            .mobile-menu-btn {
+                display: block;
             }
-            
-            .hero h1 {
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 2rem;
+                gap: 1rem;
+                box-shadow: var(--shadow-lg);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-text h1 {
                 font-size: 2rem;
             }
-            
-            .container {
-                padding: 1rem;
+
+            .hero-stats {
+                justify-content: center;
             }
-            
-            .courses-grid {
-                grid-template-columns: 1fr;
+
+            .section-title {
+                font-size: 2rem;
             }
-        }
-        
-        /* Video Player */
-        .video-player {
-            width: 100%;
-            background: #000;
-            border-radius: 10px;
-            margin: 1rem 0;
-        }
-        
-        /* Admin Stats */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-        
-        .stat-card {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            padding: 1.5rem;
-            border-radius: 15px;
-            text-align: center;
-        }
-        
-        .stat-number {
-            font-size: 2rem;
-            font-weight: bold;
-            margin-top: 0.5rem;
-        }
-        
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 1rem;
-        }
-        
-        th, td {
-            padding: 0.75rem;
-            text-align: left;
-            border-bottom: 1px solid #eee;
-        }
-        
-        th {
-            background: #f5f5f5;
-            font-weight: 600;
+
+            .cta-section {
+                padding: 2rem;
+            }
+
+            .cta-section h2 {
+                font-size: 1.75rem;
+            }
+
+            .color-picker-btn {
+                bottom: 20px;
+                right: 20px;
+                width: 45px;
+                height: 45px;
+            }
         }
     </style>
 </head>
 <body>
-    <div id="app"></div>
+    <!-- Color Picker Button -->
+    <button class="color-picker-btn" id="colorPickerBtn" style="background: linear-gradient(135deg, #FF6B6B, #4ECDC4, #45B7D1, #96CEB4);">
+        <i class="fas fa-palette"></i>
+    </button>
 
-    <script>
-        // Dummy Data
-        const dummyData = {
-            users: [
-                { id: 1, name: "Admin User", email: "admin@edulearn.com", password: "admin123", role: "admin" },
-                { id: 2, name: "John Student", email: "student@edulearn.com", password: "student123", role: "student" }
-            ],
-            courses: [
-                {
-                    id: 1,
-                    title: "Complete Web Development Bootcamp 2024",
-                    instructor: "Dr. Sarah Johnson",
-                    description: "Learn HTML, CSS, JavaScript, React, Node.js, and MongoDB from scratch. Build real-world projects!",
-                    category: "Web Development",
-                    level: "Beginner",
-                    price: 49.99,
-                    thumbnail: "https://picsum.photos/id/0/400/250",
-                    rating: 4.8,
-                    students: 1234,
-                    duration: "40 hours",
-                    lessons: [
-                        { id: 1, title: "Introduction to HTML", duration: "15:30", videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4" },
-                        { id: 2, title: "CSS Fundamentals", duration: "20:45", videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4" },
-                        { id: 3, title: "JavaScript Basics", duration: "25:00", videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4" }
-                    ]
-                },
-                {
-                    id: 2,
-                    title: "Python for Data Science & Machine Learning",
-                    instructor: "Prof. Michael Chen",
-                    description: "Master Python programming, data analysis with pandas, numpy, and machine learning algorithms",
-                    category: "Data Science",
-                    level: "Intermediate",
-                    price: 59.99,
-                    thumbnail: "https://picsum.photos/id/1/400/250",
-                    rating: 4.9,
-                    students: 2345,
-                    duration: "35 hours",
-                    lessons: [
-                        { id: 4, title: "Python Basics", duration: "20:00", videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4" },
-                        { id: 5, title: "NumPy Arrays", duration: "18:30", videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4" }
-                    ]
-                },
-                {
-                    id: 3,
-                    title: "UI/UX Design Masterclass",
-                    instructor: "Emma Watson",
-                    description: "Learn design principles, Figma, user research, and prototyping. Create stunning designs!",
-                    category: "Design",
-                    level: "Beginner",
-                    price: 39.99,
-                    thumbnail: "https://picsum.photos/id/2/400/250",
-                    rating: 4.7,
-                    students: 3456,
-                    duration: "25 hours",
-                    lessons: [
-                        { id: 6, title: "Design Principles", duration: "12:00", videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4" },
-                        { id: 7, title: "Figma Basics", duration: "15:30", videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4" }
-                    ]
-                }
-            ],
-            enrollments: [],
-            payments: [],
-            certificates: []
-        };
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="logo" onclick="showPage('home')">InsurancePro</div>
+            <div class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                <i class="fas fa-bars"></i>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#" onclick="showPage('home'); return false;" class="active">Home</a></li>
+                <li><a href="#" onclick="showPage('services'); return false;">Services</a></li>
+                <li><a href="#" onclick="showPage('about'); return false;">About</a></li>
+                <li><a href="#" onclick="showPage('testimonials'); return false;">Testimonials</a></li>
+                <li><a href="#" onclick="showPage('quote'); return false;">Get Quote</a></li>
+                <li><a href="#" onclick="showPage('contact'); return false;">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
 
-        // App State
-        let currentUser = null;
-        let currentView = 'home';
-        let selectedCourse = null;
-        let enrolledCourses = [];
-
-        // Helper Functions
-        function showAlert(message, type) {
-            const alertDiv = document.createElement('div');
-            alertDiv.className = `alert alert-${type}`;
-            alertDiv.textContent = message;
-            document.querySelector('.container')?.prepend(alertDiv);
-            alertDiv.style.display = 'block';
-            setTimeout(() => alertDiv.remove(), 3000);
-        }
-
-        function saveToLocalStorage() {
-            localStorage.setItem('users', JSON.stringify(dummyData.users));
-            localStorage.setItem('courses', JSON.stringify(dummyData.courses));
-            localStorage.setItem('enrollments', JSON.stringify(dummyData.enrollments));
-            localStorage.setItem('payments', JSON.stringify(dummyData.payments));
-            localStorage.setItem('certificates', JSON.stringify(dummyData.certificates));
-        }
-
-        function loadFromLocalStorage() {
-            const users = localStorage.getItem('users');
-            const courses = localStorage.getItem('courses');
-            const enrollments = localStorage.getItem('enrollments');
-            const payments = localStorage.getItem('payments');
-            const certificates = localStorage.getItem('certificates');
-            
-            if (users) dummyData.users = JSON.parse(users);
-            if (courses) dummyData.courses = JSON.parse(courses);
-            if (enrollments) dummyData.enrollments = JSON.parse(enrollments);
-            if (payments) dummyData.payments = JSON.parse(payments);
-            if (certificates) dummyData.certificates = JSON.parse(certificates);
-        }
-
-        // Payment Simulation
-        async function processPayment(courseId, amount) {
-            return new Promise((resolve) => {
-                setTimeout(() => {
-                    resolve({ success: true, paymentId: 'pay_' + Date.now() });
-                }, 1000);
-            });
-        }
-
-        // Certificate Generation
-        function generateCertificate(userId, courseId) {
-            const certificateId = 'CERT-' + Date.now() + '-' + Math.random().toString(36).substr(2, 6);
-            const certificate = {
-                id: certificateId,
-                userId: userId,
-                courseId: courseId,
-                issuedAt: new Date().toISOString(),
-                pdfUrl: '#'
-            };
-            dummyData.certificates.push(certificate);
-            saveToLocalStorage();
-            return certificate;
-        }
-
-        // Render Functions
-        function render() {
-            const app = document.getElementById('app');
-            app.innerHTML = `
-                <nav class="navbar">
-                    <div class="nav-container">
-                        <div class="logo">
-                            <i class="fas fa-graduation-cap"></i> EduLearn
-                        </div>
-                        <div class="nav-links">
-                            <a onclick="navigateTo('home')">Home</a>
-                            <a onclick="navigateTo('courses')">Courses</a>
-                            ${currentUser ? `<a onclick="navigateTo('dashboard')">Dashboard</a>` : ''}
-                            ${currentUser?.role === 'admin' ? `<a onclick="navigateTo('admin')">Admin</a>` : ''}
-                            ${currentUser ? 
-                                `<button class="btn btn-outline" onclick="logout()">Logout (${currentUser.name})</button>` :
-                                `<button class="btn btn-primary" onclick="navigateTo('login')">Login</button>`
-                            }
-                        </div>
-                    </div>
-                </nav>
-                <div class="container">
-                    ${renderCurrentView()}
-                </div>
-            `;
-        }
-
-        function renderCurrentView() {
-            switch(currentView) {
-                case 'home': return renderHome();
-                case 'courses': return renderCourses();
-                case 'course-details': return renderCourseDetails();
-                case 'checkout': return renderCheckout();
-                case 'dashboard': return renderDashboard();
-                case 'admin': return renderAdminDashboard();
-                case 'login': return renderLogin();
-                case 'register': return renderRegister();
-                default: return renderHome();
-            }
-        }
-
-        function renderHome() {
-            const featuredCourses = dummyData.courses.slice(0, 3);
-            return `
-                <div class="hero">
-                    <h1>Learn Without Limits</h1>
-                    <p>Start, switch, or advance your career with more than 100+ courses</p>
-                    <button class="btn btn-primary" onclick="navigateTo('courses')">Start Learning Now</button>
-                </div>
-                
-                <h2 style="margin-top: 2rem;">Featured Courses</h2>
-                <div class="courses-grid">
-                    ${featuredCourses.map(course => `
-                        <div class="course-card" onclick="viewCourseDetails(${course.id})">
-                            <img src="${course.thumbnail}" alt="${course.title}" class="course-thumbnail">
-                            <div class="course-info">
-                                <h3 class="course-title">${course.title}</h3>
-                                <p class="course-instructor"><i class="fas fa-user"></i> ${course.instructor}</p>
-                                <div class="rating">
-                                    ${'★'.repeat(Math.floor(course.rating))}${'☆'.repeat(5 - Math.floor(course.rating))}
-                                    <span style="color:#666"> (${course.rating})</span>
-                                </div>
-                                <div class="course-price">$${course.price}</div>
-                                <button class="btn btn-primary" onclick="event.stopPropagation(); viewCourseDetails(${course.id})">View Details</button>
-                            </div>
-                        </div>
-                    `).join('')}
-                </div>
-                
-                <div style="margin-top: 3rem; text-align: center;">
-                    <h2>Why Choose EduLearn?</h2>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-top: 2rem;">
-                        <div>
-                            <i class="fas fa-chalkboard-teacher" style="font-size: 3rem; color: #667eea;"></i>
-                            <h3>Expert Instructors</h3>
-                            <p>Learn from industry professionals</p>
-                        </div>
-                        <div>
-                            <i class="fas fa-certificate" style="font-size: 3rem; color: #667eea;"></i>
-                            <h3>Get Certified</h3>
-                            <p>Earn certificates upon completion</p>
-                        </div>
-                        <div>
-                            <i class="fas fa-clock" style="font-size: 3rem; color: #667eea;"></i>
-                            <h3>Lifetime Access</h3>
-                            <p>Learn at your own pace</p>
-                        </div>
-                    </div>
-                </div>
-            `;
-        }
-
-        function renderCourses() {
-            return `
-                <h1>All Courses</h1>
-                <div class="courses-grid">
-                    ${dummyData.courses.map(course => `
-                        <div class="course-card" onclick="viewCourseDetails(${course.id})">
-                            <img src="${course.thumbnail}" alt="${course.title}" class="course-thumbnail">
-                            <div class="course-info">
-                                <h3 class="course-title">${course.title}</h3>
-                                <p class="course-instructor"><i class="fas fa-user"></i> ${course.instructor}</p>
-                                <div class="rating">
-                                    ${'★'.repeat(Math.floor(course.rating))}${'☆'.repeat(5 - Math.floor(course.rating))}
-                                    <span style="color:#666"> (${course.rating})</span>
-                                </div>
-                                <div class="course-price">$${course.price}</div>
-                                <button class="btn btn-primary" onclick="event.stopPropagation(); viewCourseDetails(${course.id})">View Details</button>
-                            </div>
-                        </div>
-                    `).join('')}
-                </div>
-            `;
-        }
-
-        function renderCourseDetails() {
-            if (!selectedCourse) return '<p>Course not found</p>';
-            
-            const isEnrolled = currentUser && dummyData.enrollments.some(e => e.userId === currentUser.id && e.courseId === selectedCourse.id);
-            
-            return `
-                <div style="background: white; border-radius: 20px; padding: 2rem;">
-                    <button class="btn btn-outline" onclick="navigateTo('courses')">← Back to Courses</button>
-                    <img src="${selectedCourse.thumbnail}" alt="${selectedCourse.title}" style="width: 100%; max-height: 400px; object-fit: cover; border-radius: 15px; margin: 1rem 0;">
-                    <h1>${selectedCourse.title}</h1>
-                    <p><i class="fas fa-user"></i> ${selectedCourse.instructor}</p>
-                    <div class="rating">
-                        ${'★'.repeat(Math.floor(selectedCourse.rating))}${'☆'.repeat(5 - Math.floor(selectedCourse.rating))}
-                        <span> (${selectedCourse.rating})</span>
-                        <span style="margin-left: 1rem;"><i class="fas fa-users"></i> ${selectedCourse.students} students</span>
-                    </div>
-                    <p style="margin: 1rem 0;">${selectedCourse.description}</p>
-                    <div style="background: #f5f5f5; padding: 1rem; border-radius: 10px; margin: 1rem 0;">
-                        <h3>Course Includes:</h3>
-                        <ul>
-                            <li><i class="fas fa-video"></i> ${selectedCourse.duration} of video content</li>
-                            <li><i class="fas fa-download"></i> Downloadable resources</li>
-                            <li><i class="fas fa-certificate"></i> Certificate of completion</li>
-                        </ul>
-                    </div>
-                    <h3>Course Content</h3>
-                    ${selectedCourse.lessons.map((lesson, index) => `
-                        <div style="border: 1px solid #eee; padding: 1rem; margin: 0.5rem 0; border-radius: 10px;">
-                            <i class="fas fa-play-circle"></i> Lesson ${index + 1}: ${lesson.title}
-                            <span style="float: right;">${lesson.duration}</span>
-                        </div>
-                    `).join('')}
-                    
-                    ${!isEnrolled ? `
-                        <div style="margin-top: 2rem; text-align: center;">
-                            <h2 class="course-price">$${selectedCourse.price}</h2>
-                            ${currentUser ? 
-                                `<button class="btn btn-primary" onclick="navigateToCheckout(${selectedCourse.id})">Enroll Now</button>` :
-                                `<button class="btn btn-primary" onclick="navigateTo('login')">Login to Enroll</button>`
-                            }
-                        </div>
-                    ` : `
-                        <div style="margin-top: 2rem; text-align: center;">
-                            <button class="btn btn-primary" onclick="navigateTo('dashboard')">Go to Dashboard</button>
-                        </div>
-                    `}
-                </div>
-            `;
-        }
-
-        function renderCheckout() {
-            if (!selectedCourse) return '<p>No course selected</p>';
-            
-            return `
-                <div style="background: white; border-radius: 20px; padding: 2rem; max-width: 500px; margin: 0 auto;">
-                    <h2>Checkout</h2>
-                    <div style="border-bottom: 1px solid #eee; padding: 1rem 0;">
-                        <h3>${selectedCourse.title}</h3>
-                        <p>Instructor: ${selectedCourse.instructor}</p>
-                        <h2 class="course-price">$${selectedCourse.price}</h2>
-                    </div>
-                    <div style="margin: 2rem 0;">
-                        <h3>Payment Details</h3>
-                        <div class="form-group">
-                            <label>Card Number</label>
-                            <input type="text" id="cardNumber" placeholder="4242 4242 4242 4242" value="4242424242424242">
-                        </div>
-                        <div class="form-group">
-                            <label>Expiry Date</label>
-                            <input type="text" id="expiry" placeholder="MM/YY" value="12/25">
-                        </div>
-                        <div class="form-group">
-                            <label>CVC</label>
-                            <input type="text" id="cvc" placeholder="123" value="123">
-                        </div>
-                    </div>
-                    <button class="btn btn-primary" onclick="processCheckout()" style="width: 100%;">Pay $${selectedCourse.price}</button>
-                    <button class="btn btn-outline" onclick="navigateTo('course-details')" style="width: 100%; margin-top: 1rem;">Cancel</button>
-                </div>
-            `;
-        }
-
-        function renderDashboard() {
-            const userEnrollments = dummyData.enrollments.filter(e => e.userId === currentUser.id);
-            const userPayments = dummyData.payments.filter(p => p.userId === currentUser.id);
-            const userCertificates = dummyData.certificates.filter(c => c.userId === currentUser.id);
-            
-            return `
-                <div class="dashboard">
-                    <h2>Welcome back, ${currentUser.name}!</h2>
-                    
-                    <div class="dashboard-tabs">
-                        <button class="tab-btn active" onclick="switchDashboardTab('courses')">My Courses</button>
-                        <button class="tab-btn" onclick="switchDashboardTab('progress')">Progress</button>
-                        <button class="tab-btn" onclick="switchDashboardTab('payments')">Payment History</button>
-                        <button class="tab-btn" onclick="switchDashboardTab('certificates')">Certificates</button>
-                        <button class="tab-btn" onclick="switchDashboardTab('profile')">Profile</button>
-                    </div>
-                    
-                    <div id="dashboard-content">
-                        ${renderDashboardCourses(userEnrollments)}
-                    </div>
-                </div>
-            `;
-        }
-
-        function renderDashboardCourses(enrollments) {
-            if (enrollments.length === 0) {
-                return `
-                    <div style="text-align: center; padding: 3rem;">
-                        <i class="fas fa-book-open" style="font-size: 3rem; color: #ccc;"></i>
-                        <h3>No courses enrolled yet</h3>
-                        <p>Start your learning journey by enrolling in a course</p>
-                        <button class="btn btn-primary" onclick="navigateTo('courses')">Browse Courses</button>
-                    </div>
-                `;
-            }
-            
-            return `
-                <div class="enrolled-courses">
-                    ${enrollments.map(enrollment => {
-                        const course = dummyData.courses.find(c => c.id === enrollment.courseId);
-                        return `
-                            <div class="enrolled-course">
-                                <h3>${course.title}</h3>
-                                <p>${course.instructor}</p>
-                                <div class="progress-bar">
-                                    <div class="progress-fill" style="width: ${enrollment.progress || 0}%"></div>
-                                </div>
-                                <p>${Math.round(enrollment.progress || 0)}% Complete</p>
-                                <button class="btn btn-primary" onclick="continueLearning(${course.id})">Continue Learning</button>
-                                ${enrollment.completed ? `<button class="btn btn-success" onclick="downloadCertificate(${course.id})">Download Certificate</button>` : ''}
-                            </div>
-                        `;
-                    }).join('')}
-                </div>
-            `;
-        }
-
-        function renderAdminDashboard() {
-            const totalStudents = dummyData.users.filter(u => u.role === 'student').length;
-            const totalRevenue = dummyData.payments.reduce((sum, p) => sum + p.amount, 0);
-            
-            return `
-                <div class="dashboard">
-                    <h2>Admin Dashboard</h2>
-                    
-                    <div class="stats-grid">
-                        <div class="stat-card">
-                            <i class="fas fa-users" style="font-size: 2rem;"></i>
-                            <div class="stat-number">${totalStudents}</div>
-                            <div>Total Students</div>
-                        </div>
-                        <div class="stat-card">
-                            <i class="fas fa-book" style="font-size: 2rem;"></i>
-                            <div class="stat-number">${dummyData.courses.length}</div>
-                            <div>Total Courses</div>
-                        </div>
-                        <div class="stat-card">
-                            <i class="fas fa-dollar-sign" style="font-size: 2rem;"></i>
-                            <div class="stat-number">$${totalRevenue}</div>
-                            <div>Total Revenue</div>
-                        </div>
-                        <div class="stat-card">
-                            <i class="fas fa-trophy" style="font-size: 2rem;"></i>
-                            <div class="stat-number">${dummyData.certificates.length}</div>
-                            <div>Certificates Issued</div>
-                        </div>
-                    </div>
-                    
-                    <div class="dashboard-tabs">
-                        <button class="tab-btn active" onclick="switchAdminTab('courses')">Manage Courses</button>
-                        <button class="tab-btn" onclick="switchAdminTab('students')">Manage Students</button>
-                        <button class="tab-btn" onclick="switchAdminTab('payments')">Payments</button>
-                        <button class="tab-btn" onclick="switchAdminTab('add-course')">Add New Course</button>
-                    </div>
-                    
-                    <div id="admin-content">
-                        ${renderAdminCourses()}
-                    </div>
-                </div>
-            `;
-        }
-
-        function renderAdminCourses() {
-            return `
-                <table>
-                    <thead>
-                        <tr><th>ID</th><th>Title</th><th>Instructor</th><th>Price</th><th>Students</th><th>Actions</th></tr>
-                    </thead>
-                    <tbody>
-                        ${dummyData.courses.map(course => `
-                            <tr>
-                                <td>${course.id}</td>
-                                <td>${course.title}</td>
-                                <td>${course.instructor}</td>
-                                <td>$${course.price}</td>
-                                <td>${course.students}</td>
-                                <td>
-                                    <button class="btn btn-outline" onclick="editCourse(${course.id})">Edit</button>
-                                    <button class="btn btn-outline" onclick="deleteCourse(${course.id})">Delete</button>
-                                </td>
-                            </tr>
-                        `).join('')}
-                    </tbody>
-                </table>
-            `;
-        }
-
-        function renderLogin() {
-            return `
-                <div style="max-width: 400px; margin: 2rem auto; background: white; padding: 2rem; border-radius: 20px;">
-                    <h2 style="text-align: center;">Login to EduLearn</h2>
-                    <form onsubmit="handleLogin(event)">
-                        <div class="form-group">
-                            <label>Email</label>
-                            <input type="email" id="loginEmail" required placeholder="student@edulearn.com">
-                        </div>
-                        <div class="form-group">
-                            <label>Password</label>
-                            <input type="password" id="loginPassword" required placeholder="student123">
-                        </div>
-                        <button type="submit" class="btn btn-primary" style="width: 100%;">Login</button>
-                    </form>
-                    <p style="text-align: center; margin-top: 1rem;">
-                        Don't have an account? <a onclick="navigateTo('register')" style="color: #667eea; cursor: pointer;">Register</a>
-                    </p>
-                    <p style="text-align: center; margin-top: 1rem; font-size: 0.9rem; color: #666;">
-                        Demo: student@edulearn.com / student123<br>
-                        Admin: admin@edulearn.com / admin123
-                    </p>
-                </div>
-            `;
-        }
-
-        function renderRegister() {
-            return `
-                <div style="max-width: 400px; margin: 2rem auto; background: white; padding: 2rem; border-radius: 20px;">
-                    <h2 style="text-align: center;">Create Account</h2>
-                    <form onsubmit="handleRegister(event)">
-                        <div class="form-group">
-                            <label>Full Name</label>
-                            <input type="text" id="regName" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Email</label>
-                            <input type="email" id="regEmail" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Password</label>
-                            <input type="password" id="regPassword" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary" style="width: 100%;">Register</button>
-                    </form>
-                    <p style="text-align: center; margin-top: 1rem;">
-                        Already have an account? <a onclick="navigateTo('login')" style="color: #667eea; cursor: pointer;">Login</a>
-                    </p>
-                </div>
-            `;
-        }
-
-        // Navigation Functions
-        window.navigateTo = function(view) {
-            currentView = view;
-            render();
-        };
-
-        window.viewCourseDetails = function(courseId) {
-            selectedCourse = dummyData.courses.find(c => c.id === courseId);
-            currentView = 'course-details';
-            render();
-        };
-
-        window.navigateToCheckout = function(courseId) {
-            selectedCourse = dummyData.courses.find(c => c.id === courseId);
-            currentView = 'checkout';
-            render();
-        };
-
-        window.processCheckout = async function() {
-            if (!currentUser) {
-                showAlert('Please login first', 'error');
-                navigateTo('login');
-                return;
-            }
-            
-            const result = await processPayment(selectedCourse.id, selectedCourse.price);
-            
-            if (result.success) {
-                // Add payment record
-                dummyData.payments.push({
-                    id: Date.now(),
-                    userId: currentUser.id,
-                    courseId: selectedCourse.id,
-                    amount: selectedCourse.price,
-                    date: new Date().toISOString(),
-                    status: 'completed'
-                });
-                
-                // Add enrollment
-                dummyData.enrollments.push({
-                    id: Date.now(),
-                    userId: currentUser.id,
-                    courseId: selectedCourse.id,
-                    enrolledAt: new Date().toISOString(),
-                    progress: 0,
-                    completed: false
-                });
-                
-                saveToLocalStorage();
-                showAlert('Payment successful! You are now enrolled.', 'success');
-                navigateTo('dashboard');
-            }
-        };
-
-        window.handleLogin = function(event) {
-            event.preventDefault();
-            const email = document.getElementById('loginEmail').value;
-            const password = document.getElementById('loginPassword').value;
-            
-            const user = dummyData.users.find(u => u.email === email && u.password === password);
-            
-            if (user) {
-                currentUser = user;
-                showAlert(`Welcome back, ${user.name}!`, 'success');
-                navigateTo('home');
-            } else {
-                showAlert('Invalid credentials', 'error');
-            }
-        };
-
-        window.handleRegister = function(event) {
-            event.preventDefault();
-            const name = document.getElementById('regName').value;
-            const email = document.getElementById('regEmail').value;
-            const password = document.getElementById('regPassword').value;
-            
-            if (dummyData.users.find(u => u.email === email)) {
-                showAlert('Email already exists', 'error');
-                return;
-            }
-            
-            const newUser = {
-                id: dummyData.users.length + 1,
-                name,
-                email,
-                password,
-                role: 'student'
-            };
-            
-            dummyData.users.push(newUser);
-            saveToLocalStorage();
-            showAlert('Registration successful! Please login.', 'success');
-            navigateTo('login');
-        };
-
-        window.logout = function() {
-            currentUser = null;
-            showAlert('Logged out successfully', 'success');
-            navigateTo('home');
-        };
-
-        window.continueLearning = function(courseId) {
-            const enrollment = dummyData.enrollments.find(e => e.userId === currentUser.id && e.courseId === courseId);
-            const course = dummyData.courses.find(c => c.id === courseId);
-            
-            if (enrollment && course) {
-                const modal = document.createElement('div');
-                modal.className = 'modal';
-                modal.innerHTML = `
-                    <div class="modal-content">
-                        <span class="close-modal" onclick="this.closest('.modal').remove()">&times;</span>
-                        <h3>${course.title}</h3>
-                        <video class="video-player" controls autoplay>
-                            <source src="${course.lessons[0].videoUrl}" type="video/mp4">
-                        </video>
-                        <div style="margin-top: 1rem;">
-                            <h4>Lessons</h4>
-                            ${course.lessons.map(lesson => `
-                                <div style="padding: 0.5rem; border: 1px solid #eee; margin: 0.5rem 0; border-radius: 8px;">
-                                    <i class="fas fa-play-circle"></i> ${lesson.title} (${lesson.duration})
-                                </div>
-                            `).join('')}
-                        </div>
-                        <button class="btn btn-primary" onclick="markLessonComplete(${courseId}); this.closest('.modal').remove();" style="margin-top: 1rem;">
-                            Mark Current Lesson Complete
+    <!-- Home Page -->
+    <div id="home-page" class="page active">
+        <!-- Hero Section -->
+        <section class="hero" id="heroSection">
+            <div class="hero-content">
+                <div class="hero-text" data-aos="fade-up">
+                    <h1>Smart Insurance for Modern Lives</h1>
+                    <p>Protect what matters most with AI-powered coverage. Get instant quotes, smart recommendations, and 24/7 claims support.</p>
+                    <div class="hero-buttons">
+                        <button class="btn btn-primary" onclick="showPage('quote')">
+                            <i class="fas fa-bolt"></i> Get Instant Quote
+                        </button>
+                        <button class="btn btn-secondary" onclick="showPage('contact')">
+                            <i class="fas fa-headset"></i> Talk to Expert
                         </button>
                     </div>
-                `;
-                document.body.appendChild(modal);
-                modal.style.display = 'block';
-            }
-        };
+                    <div class="hero-stats">
+                        <div class="stat-card">
+                            <div class="stat-number">10K+</div>
+                            <div class="stat-label">Happy Clients</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">98%</div>
+                            <div class="stat-label">Satisfaction</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">24/7</div>
+                            <div class="stat-label">Support</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-image" data-aos="fade-up" data-aos-delay="200">
+                    <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="200" cy="200" r="180" fill="rgba(255,255,255,0.1)"/>
+                        <path d="M200 100 L250 150 L200 200 L150 150 Z" fill="white" opacity="0.9"/>
+                        <circle cx="200" cy="200" r="30" fill="white" opacity="0.9"/>
+                    </svg>
+                </div>
+            </div>
+        </section>
 
-        window.markLessonComplete = function(courseId) {
-            const enrollment = dummyData.enrollments.find(e => e.userId === currentUser.id && e.courseId === courseId);
-            if (enrollment) {
-                enrollment.progress = Math.min((enrollment.progress || 0) + 33, 100);
-                if (enrollment.progress === 100) {
-                    enrollment.completed = true;
-                    showAlert('Congratulations! You completed the course!', 'success');
-                }
-                saveToLocalStorage();
-                render();
-            }
-        };
+        <!-- Services Preview -->
+        <section class="section">
+            <div class="container">
+                <div class="section-header" data-aos="fade-up">
+                    <span class="section-badge" id="servicesBadge">Our Solutions</span>
+                    <h2 class="section-title">Comprehensive Coverage for Every Need</h2>
+                    <p class="section-subtitle">Choose from our range of smart insurance products designed for modern lifestyles</p>
+                </div>
+                <div class="services-grid" id="servicesGrid">
+                    <!-- Services will be populated via JavaScript -->
+                </div>
+            </div>
+        </section>
 
-        window.downloadCertificate = function(courseId) {
-            const certificate = generateCertificate(currentUser.id, courseId);
-            showAlert(`Certificate generated! ID: ${certificate.id}`, 'success');
-            render();
-        };
+        <!-- CTA Section -->
+        <section class="section">
+            <div class="container">
+                <div class="cta-section" id="ctaSection" data-aos="zoom-in">
+                    <div class="cta-content">
+                        <h2>Ready to Get Protected?</h2>
+                        <p>Join thousands of satisfied customers who trust InsurancePro for their coverage needs</p>
+                        <button class="btn btn-outline" onclick="showPage('quote')">
+                            Get Your Free Quote Now <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
 
-        window.deleteCourse = function(courseId) {
-            if (confirm('Are you sure you want to delete this course?')) {
-                const index = dummyData.courses.findIndex(c => c.id === courseId);
-                if (index !== -1) {
-                    dummyData.courses.splice(index, 1);
-                    saveToLocalStorage();
-                    showAlert('Course deleted successfully', 'success');
-                    render();
-                }
-            }
-        };
+    <!-- Services Page -->
+    <div id="services-page" class="page">
+        <section class="section" style="padding-top: 120px;">
+            <div class="container">
+                <div class="section-header" data-aos="fade-up">
+                    <span class="section-badge" id="fullServicesBadge">Insurance Products</span>
+                    <h2 class="section-title">Smart Coverage for Every Aspect of Life</h2>
+                    <p class="section-subtitle">Tailored solutions with AI-powered recommendations and instant approvals</p>
+                </div>
+                <div class="services-grid" id="fullServicesGrid"></div>
+            </div>
+        </section>
+    </div>
 
-        window.editCourse = function(courseId) {
-            const course = dummyData.courses.find(c => c.id === courseId);
-            const newTitle = prompt('Enter new title:', course.title);
-            if (newTitle) {
-                course.title = newTitle;
-                saveToLocalStorage();
-                showAlert('Course updated successfully', 'success');
-                render();
-            }
-        };
-
-        window.switchDashboardTab = function(tab) {
-            const content = document.getElementById('dashboard-content');
-            const userEnrollments = dummyData.enrollments.filter(e => e.userId === currentUser.id);
-            
-            switch(tab) {
-                case 'courses':
-                    content.innerHTML = renderDashboardCourses(userEnrollments);
-                    break;
-                case 'progress':
-                    content.innerHTML = renderDashboardProgress(userEnrollments);
-                    break;
-                case 'payments':
-                    content.innerHTML = renderDashboardPayments();
-                    break;
-                case 'certificates':
-                    content.innerHTML = renderDashboardCertificates();
-                    break;
-                case 'profile':
-                    content.innerHTML = renderProfileSettings();
-                    break;
-            }
-        };
-
-        function renderDashboardProgress(enrollments) {
-            return `
-                <div>
-                    <h3>Your Learning Progress</h3>
-                    ${enrollments.map(enrollment => {
-                        const course = dummyData.courses.find(c => c.id === enrollment.courseId);
-                        return `
-                            <div class="enrolled-course">
-                                <h4>${course.title}</h4>
-                                <div class="progress-bar">
-                                    <div class="progress-fill" style="width: ${enrollment.progress || 0}%"></div>
-                                </div>
-                                <p>${Math.round(enrollment.progress || 0)}% Complete</p>
-                                <p>${enrollment.completed ? '✅ Course Completed!' : '🔄 In Progress'}</p>
+    <!-- About Page -->
+    <div id="about-page" class="page">
+        <section class="section" style="padding-top: 120px;">
+            <div class="container">
+                <div class="section-header" data-aos="fade-up">
+                    <span class="section-badge" id="aboutBadge">Our Story</span>
+                    <h2 class="section-title">Redefining Insurance for the Digital Age</h2>
+                    <p class="section-subtitle">We're on a mission to make insurance simple, transparent, and accessible for everyone</p>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;">
+                    <div data-aos="fade-right">
+                        <h3 style="font-size: 1.75rem; margin-bottom: 1rem;">Innovation Meets Protection</h3>
+                        <p style="color: var(--gray-600); line-height: 1.8; margin-bottom: 1.5rem;">Founded in 2020, InsurancePro has revolutionized the insurance industry by combining cutting-edge AI technology with personalized service. We've helped over 10,000 clients find the perfect coverage at competitive rates.</p>
+                        <p style="color: var(--gray-600); line-height: 1.8; margin-bottom: 1.5rem;">Our team of experts uses advanced algorithms to analyze thousands of insurance options, ensuring you get the best coverage for your unique needs. We're committed to transparency, with no hidden fees or complicated jargon.</p>
+                        <div style="display: flex; gap: 2rem; margin-top: 2rem;">
+                            <div>
+                                <div style="font-size: 2rem; font-weight: 800; background: var(--stat-gradient, linear-gradient(135deg, #667eea, #764ba2)); -webkit-background-clip: text; background-clip: text; color: transparent;">50+</div>
+                                <div style="color: var(--gray-600);">Insurance Partners</div>
                             </div>
-                        `;
-                    }).join('')}
-                </div>
-            `;
-        }
-
-        function renderDashboardPayments() {
-            const userPayments = dummyData.payments.filter(p => p.userId === currentUser.id);
-            return `
-                <table>
-                    <thead>
-                        <tr><th>Course</th><th>Amount</th><th>Date</th><th>Status</th></tr>
-                    </thead>
-                    <tbody>
-                        ${userPayments.map(payment => {
-                            const course = dummyData.courses.find(c => c.id === payment.courseId);
-                            return `
-                                <tr>
-                                    <td>${course?.title || 'Unknown'}</td>
-                                    <td>$${payment.amount}</td>
-                                    <td>${new Date(payment.date).toLocaleDateString()}</td>
-                                    <td><span style="color: green;">${payment.status}</span></td>
-                                </tr>
-                            `;
-                        }).join('')}
-                    </tbody>
-                </table>
-            `;
-        }
-
-        function renderDashboardCertificates() {
-            const userCertificates = dummyData.certificates.filter(c => c.userId === currentUser.id);
-            return `
-                <div>
-                    ${userCertificates.length === 0 ? '<p>No certificates yet. Complete a course to earn one!</p>' : `
-                        ${userCertificates.map(cert => {
-                            const course = dummyData.courses.find(c => c.id === cert.courseId);
-                            return `
-                                <div class="enrolled-course">
-                                    <h3>${course?.title}</h3>
-                                    <p>Certificate ID: ${cert.id}</p>
-                                    <p>Issued: ${new Date(cert.issuedAt).toLocaleDateString()}</p>
-                                    <button class="btn btn-primary" onclick="alert('Certificate PDF would download here')">Download PDF</button>
-                                </div>
-                            `;
-                        }).join('')}
-                    `}
-                </div>
-            `;
-        }
-
-        function renderProfileSettings() {
-            return `
-                <div>
-                    <h3>Profile Settings</h3>
-                    <form onsubmit="updateProfile(event)">
-                        <div class="form-group">
-                            <label>Name</label>
-                            <input type="text" id="profileName" value="${currentUser.name}" required>
+                            <div>
+                                <div style="font-size: 2rem; font-weight: 800; background: var(--stat-gradient, linear-gradient(135deg, #667eea, #764ba2)); -webkit-background-clip: text; background-clip: text; color: transparent;">100%</div>
+                                <div style="color: var(--gray-600);">Digital Process</div>
+                            </div>
+                            <div>
+                                <div style="font-size: 2rem; font-weight: 800; background: var(--stat-gradient, linear-gradient(135deg, #667eea, #764ba2)); -webkit-background-clip: text; background-clip: text; color: transparent;">4.9</div>
+                                <div style="color: var(--gray-600);">Client Rating</div>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label>Email</label>
-                            <input type="email" id="profileEmail" value="${currentUser.email}" required>
+                    </div>
+                    <div data-aos="fade-left">
+                        <div id="aboutQuoteCard" style="border-radius: var(--border-radius-lg); padding: 3rem; color: white;">
+                            <i class="fas fa-quote-left" style="font-size: 3rem; opacity: 0.5; margin-bottom: 1rem; display: block;"></i>
+                            <p style="font-size: 1.25rem; line-height: 1.6; margin-bottom: 1.5rem;">"We believe everyone deserves peace of mind without breaking the bank. Our technology-driven approach makes quality insurance accessible to all."</p>
+                            <div>
+                                <strong>Sarah Johnson</strong>
+                                <p style="font-size: 0.875rem; opacity: 0.8;">CEO & Founder</p>
+                            </div>
                         </div>
-                        <button type="submit" class="btn btn-primary">Update Profile</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Testimonials Page -->
+    <div id="testimonials-page" class="page">
+        <section class="section" style="padding-top: 120px;">
+            <div class="container">
+                <div class="section-header" data-aos="fade-up">
+                    <span class="section-badge" id="testimonialsBadge">Client Love</span>
+                    <h2 class="section-title">What Our Clients Say About Us</h2>
+                    <p class="section-subtitle">Real stories from real people who found peace of mind with InsurancePro</p>
+                </div>
+                <div class="testimonials-slider" id="testimonialsGrid"></div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Quote Page -->
+    <div id="quote-page" class="page">
+        <section class="section" style="padding-top: 120px;">
+            <div class="container">
+                <div class="section-header" data-aos="fade-up">
+                    <span class="section-badge" id="quoteBadge">Get Started</span>
+                    <h2 class="section-title">Request Your Free Quote</h2>
+                    <p class="section-subtitle">Fill out the form below and our AI will find the best coverage options for you</p>
+                </div>
+                <div class="form-container" data-aos="fade-up">
+                    <div id="quoteAlert" class="alert" style="display: none;"></div>
+                    <form id="quoteForm">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <div class="form-group">
+                                <label>Full Name *</label>
+                                <input type="text" id="quoteName" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Email Address *</label>
+                                <input type="email" id="quoteEmail" required>
+                            </div>
+                        </div>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <div class="form-group">
+                                <label>Phone Number *</label>
+                                <input type="tel" id="quotePhone" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Insurance Type *</label>
+                                <select id="insuranceType">
+                                    <option value="">Select Type</option>
+                                    <option value="Health">Health Insurance</option>
+                                    <option value="Life">Life Insurance</option>
+                                    <option value="Auto">Auto Insurance</option>
+                                    <option value="Business">Business Insurance</option>
+                                    <option value="Home">Home Insurance</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div id="dynamicFields"></div>
+                        <div class="form-group">
+                            <label>Additional Details</label>
+                            <textarea rows="4" id="additionalDetails" placeholder="Tell us about your specific needs..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" id="submitQuoteBtn" style="width: 100%;">
+                            <i class="fas fa-paper-plane"></i> Get My Free Quote
+                        </button>
                     </form>
                 </div>
-            `;
-        }
+            </div>
+        </section>
+    </div>
 
-        window.updateProfile = function(event) {
-            event.preventDefault();
-            currentUser.name = document.getElementById('profileName').value;
-            currentUser.email = document.getElementById('profileEmail').value;
+    <!-- Contact Page -->
+    <div id="contact-page" class="page">
+        <section class="section" style="padding-top: 120px;">
+            <div class="container">
+                <div class="section-header" data-aos="fade-up">
+                    <span class="section-badge" id="contactBadge">Get in Touch</span>
+                    <h2 class="section-title">We're Here to Help 24/7</h2>
+                    <p class="section-subtitle">Have questions? Our expert team is ready to assist you</p>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;">
+                    <div class="form-container" data-aos="fade-right">
+                        <div id="contactAlert" class="alert" style="display: none;"></div>
+                        <form id="contactForm">
+                            <div class="form-group">
+                                <label>Full Name *</label>
+                                <input type="text" id="contactName" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Email Address *</label>
+                                <input type="email" id="contactEmail" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Subject *</label>
+                                <input type="text" id="contactSubject" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Message *</label>
+                                <textarea rows="5" id="contactMessage" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary" id="submitContactBtn" style="width: 100%;">
+                                <i class="fas fa-envelope"></i> Send Message
+                            </button>
+                        </form>
+                    </div>
+                    <div data-aos="fade-left">
+                        <div style="background: white; border-radius: var(--border-radius-lg); padding: 2rem; box-shadow: var(--shadow-lg);">
+                            <h3 style="margin-bottom: 1.5rem;">Contact Information</h3>
+                            <div style="margin-bottom: 1.5rem;">
+                                <i class="fas fa-map-marker-alt" style="color: var(--icon-color, #6366f1); width: 30px;"></i>
+                                <strong>Address:</strong>
+                                <p style="color: var(--gray-600); margin-top: 0.25rem;">123 Insurance Avenue, Suite 500<br>New York, NY 10001</p>
+                            </div>
+                            <div style="margin-bottom: 1.5rem;">
+                                <i class="fas fa-phone" style="color: var(--icon-color, #6366f1); width: 30px;"></i>
+                                <strong>Phone:</strong>
+                                <p style="color: var(--gray-600); margin-top: 0.25rem;">(212) 555-0123<br>1-800-555-0123 (Toll-Free)</p>
+                            </div>
+                            <div style="margin-bottom: 1.5rem;">
+                                <i class="fas fa-envelope" style="color: var(--icon-color, #6366f1); width: 30px;"></i>
+                                <strong>Email:</strong>
+                                <p style="color: var(--gray-600); margin-top: 0.25rem;">info@insurancepro.com<br>claims@insurancepro.com</p>
+                            </div>
+                            <div>
+                                <i class="fas fa-clock" style="color: var(--icon-color, #6366f1); width: 30px;"></i>
+                                <strong>Business Hours:</strong>
+                                <p style="color: var(--gray-600); margin-top: 0.25rem;">Mon-Fri: 8:00 AM - 8:00 PM EST<br>Sat: 9:00 AM - 5:00 PM EST<br>Sun: Emergency Claims 24/7</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>InsurancePro</h4>
+                    <p style="color: var(--gray-300); margin-top: 0.5rem;">Smart insurance for modern lives. Protecting what matters most with AI-powered coverage.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <a href="#" onclick="showPage('home'); return false;">Home</a>
+                    <a href="#" onclick="showPage('services'); return false;">Services</a>
+                    <a href="#" onclick="showPage('about'); return false;">About Us</a>
+                    <a href="#" onclick="showPage('testimonials'); return false;">Testimonials</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Support</h4>
+                    <a href="#" onclick="showPage('quote'); return false;">Get a Quote</a>
+                    <a href="#" onclick="showPage('contact'); return false;">Contact Us</a>
+                    <a href="#">Claims Center</a>
+                    <a href="#">FAQs</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Newsletter</h4>
+                    <p style="color: var(--gray-300); margin-bottom: 1rem;">Subscribe for insurance tips and updates</p>
+                    <div style="display: flex;">
+                        <input type="email" placeholder="Your email" style="flex: 1; padding: 0.5rem; border: none; border-radius: var(--border-radius-sm) 0 0 var(--border-radius-sm);">
+                        <button id="newsletterBtn" style="padding: 0.5rem 1rem; border: none; color: white; border-radius: 0 var(--border-radius-sm) var(--border-radius-sm) 0; cursor: pointer;">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2024 InsurancePro. All rights reserved. Licensed Insurance Agency.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Premium Color Palettes
+        const colorPalettes = [
+            { name: "Ocean Breeze", primary: "#06b6d4", secondary: "#3b82f6", gradient: "linear-gradient(135deg, #06b6d4, #3b82f6)" },
+            { name: "Sunset Vibes", primary: "#f97316", secondary: "#ef4444", gradient: "linear-gradient(135deg, #f97316, #ef4444)" },
+            { name: "Forest Mist", primary: "#10b981", secondary: "#059669", gradient: "linear-gradient(135deg, #10b981, #059669)" },
+            { name: "Royal Purple", primary: "#8b5cf6", secondary: "#a855f7", gradient: "linear-gradient(135deg, #8b5cf6, #a855f7)" },
+            { name: "Electric Pink", primary: "#ec489a", secondary: "#f43f5e", gradient: "linear-gradient(135deg, #ec489a, #f43f5e)" },
+            { name: "Golden Hour", primary: "#f59e0b", secondary: "#fbbf24", gradient: "linear-gradient(135deg, #f59e0b, #fbbf24)" },
+            { name: "Arctic Blue", primary: "#0ea5e9", secondary: "#0284c7", gradient: "linear-gradient(135deg, #0ea5e9, #0284c7)" },
+            { name: "Coral Reef", primary: "#f97316", secondary: "#fb923c", gradient: "linear-gradient(135deg, #f97316, #fb923c)" },
+            { name: "Emerald", primary: "#059669", secondary: "#10b981", gradient: "linear-gradient(135deg, #059669, #10b981)" },
+            { name: "Lavender", primary: "#a855f7", secondary: "#c084fc", gradient: "linear-gradient(135deg, #a855f7, #c084fc)" },
+            { name: "Ruby Red", primary: "#dc2626", secondary: "#ef4444", gradient: "linear-gradient(135deg, #dc2626, #ef4444)" },
+            { name: "Midnight", primary: "#1e293b", secondary: "#334155", gradient: "linear-gradient(135deg, #1e293b, #334155)" }
+        ];
+
+        let currentPalette = 0;
+
+        // Apply Color Palette
+        function applyColorPalette(paletteIndex) {
+            const palette = colorPalettes[paletteIndex];
             
-            const userIndex = dummyData.users.findIndex(u => u.id === currentUser.id);
-            if (userIndex !== -1) {
-                dummyData.users[userIndex] = currentUser;
-                saveToLocalStorage();
-                showAlert('Profile updated successfully', 'success');
-                render();
-            }
-        };
-
-        window.switchAdminTab = function(tab) {
-            const content = document.getElementById('admin-content');
-            switch(tab) {
-                case 'courses':
-                    content.innerHTML = renderAdminCourses();
-                    break;
-                case 'students':
-                    content.innerHTML = renderAdminStudents();
-                    break;
-                case 'payments':
-                    content.innerHTML = renderAdminPayments();
-                    break;
-                case 'add-course':
-                    content.innerHTML = renderAddCourseForm();
-                    break;
-            }
-        };
-
-        function renderAdminStudents() {
-            const students = dummyData.users.filter(u => u.role === 'student');
-            return `
-                <table>
-                    <thead>
-                        <tr><th>ID</th><th>Name</th><th>Email</th><th>Enrollments</th><th>Actions</th></tr>
-                    </thead>
-                    <tbody>
-                        ${students.map(student => {
-                            const enrollments = dummyData.enrollments.filter(e => e.userId === student.id);
-                            return `
-                                <tr>
-                                    <td>${student.id}</td>
-                                    <td>${student.name}</td>
-                                    <td>${student.email}</td>
-                                    <td>${enrollments.length}</td>
-                                    <td><button class="btn btn-outline" onclick="viewStudentDetails(${student.id})">View</button></td>
-                                </tr>
-                            `;
-                        }).join('')}
-                    </tbody>
-                </table>
-            `;
-        }
-
-        function renderAdminPayments() {
-            return `
-                <table>
-                    <thead>
-                        <tr><th>ID</th><th>Student</th><th>Course</th><th>Amount</th><th>Date</th><th>Status</th></tr>
-                    </thead>
-                    <tbody>
-                        ${dummyData.payments.map(payment => {
-                            const student = dummyData.users.find(u => u.id === payment.userId);
-                            const course = dummyData.courses.find(c => c.id === payment.courseId);
-                            return `
-                                <tr>
-                                    <td>${payment.id}</td>
-                                    <td>${student?.name || 'Unknown'}</td>
-                                    <td>${course?.title || 'Unknown'}</td>
-                                    <td>$${payment.amount}</td>
-                                    <td>${new Date(payment.date).toLocaleDateString()}</td>
-                                    <td><span style="color: green;">${payment.status}</span></td>
-                                </tr>
-                            `;
-                        }).join('')}
-                    </tbody>
-                </table>
-            `;
-        }
-
-        function renderAddCourseForm() {
-            return `
-                <form onsubmit="addNewCourse(event)">
-                    <div class="form-group">
-                        <label>Course Title</label>
-                        <input type="text" id="courseTitle" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Instructor</label>
-                        <input type="text" id="courseInstructor" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Description</label>
-                        <textarea id="courseDescription" rows="3" required></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label>Price</label>
-                        <input type="number" id="coursePrice" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Category</label>
-                        <select id="courseCategory">
-                            <option>Web Development</option>
-                            <option>Data Science</option>
-                            <option>Design</option>
-                        </select>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Add Course</button>
-                </form>
-            `;
-        }
-
-        window.addNewCourse = function(event) {
-            event.preventDefault();
-            const newCourse = {
-                id: dummyData.courses.length + 1,
-                title: document.getElementById('courseTitle').value,
-                instructor: document.getElementById('courseInstructor').value,
-                description: document.getElementById('courseDescription').value,
-                price: parseFloat(document.getElementById('coursePrice').value),
-                category: document.getElementById('courseCategory').value,
-                level: "Beginner",
-                thumbnail: "https://picsum.photos/id/10/400/250",
-                rating: 0,
-                students: 0,
-                duration: "10 hours",
-                lessons: []
-            };
+            // Update CSS variables
+            document.documentElement.style.setProperty('--primary-color', palette.primary);
+            document.documentElement.style.setProperty('--secondary-color', palette.secondary);
             
-            dummyData.courses.push(newCourse);
-            saveToLocalStorage();
-            showAlert('Course added successfully!', 'success');
-            switchAdminTab('courses');
-        };
-
-        window.viewStudentDetails = function(studentId) {
-            const student = dummyData.users.find(u => u.id === studentId);
-            const enrollments = dummyData.enrollments.filter(e => e.userId === studentId);
-            alert(`Student: ${student.name}\nEmail: ${student.email}\nEnrolled Courses: ${enrollments.length}`);
-        };
-
+            // Hero Section
+            const heroSection = document.getElementById('heroSection');
+            if (heroSection) {
+                heroSection.style.background = `linear-gradient(135deg, ${palette.primary} 0%, ${palette.secondary} 100%)`;
+            }
+            
+            // CTA Section
+            const ctaSection = document.getElementById('ctaSection');
+            if (ctaSection) {
+                ctaSection.style.background = `linear-gradient(135deg, ${palette.primary}20 0%, ${palette.secondary}20 100%)`;
+                ctaSection.style.background = `linear-gradient(135deg, ${palette.primary} 0%, ${palette.secondary} 100%)`;
+            }
+            
+            // About Quote Card
+            const aboutQuoteCard = document.getElementById('aboutQuoteCard');
+            if (aboutQuoteCard) {
+                aboutQuoteCard.style.background = `linear-gradient(135deg, ${palette.primary} 0%, ${palette.secondary} 100%)`;
+            }
+            
+            // Buttons
+            const btns = document.querySelectorAll('.btn-primary, #submitQuoteBtn, #submitContactBtn, #newsletterBtn');
+            btns.forEach(btn => {
+                btn.style.background = `linear-gradient(135deg, ${palette.primary}, ${palette.secondary})`;
+            });
+            
+            // Badges
+            const badges = document.querySelectorAll('.section-badge');
+            badges.forEach(badge => {
+                badge.style.background = `linear-gradient(135deg, ${palette.primary}10, ${palette.secondary}10)`;
+                badge.style.color = palette.primary;
+            });
+            
+            // Service Icons
+            const serviceIcons = document.querySelectorAll('.service-icon');
+            serviceIcons.forEach(icon => {
+                icon.style.background = `linear-gradient(135deg, ${palette.primary}10, ${palette.secondary}10)`;
+                const iconElement = icon.querySelector('i');
+                if (iconElement) {
+                    iconElement.style.background = `linear-gradient(135deg, ${palette.primary}, ${palette.secondary})`;
+                    iconElement.style.webkitBackgroundClip = 'text';
+                    iconElement.style.backgroundClip = 'text';
+                }
+            });
+            
+            // Service Prices
+            const prices = document.querySelectorAll('.service-price');
+            prices.forEach(price => {
+                price.style.background = `linear-gradient(135deg, ${palette.primary}, ${palette.secondary})`;
+                price.style.webkitBackgroundClip = 'text';
+                price.style.backgroundClip = 'text';
+            });
+            
+            // Logo
+            const logo = document.querySelector('.logo');
+            if (logo) {
+                logo.style.background = `linear-gradient(135deg, ${palette.primary}, ${palette.secondary})`;
+                logo.style.webkitBackgroundClip = 'text';
+                logo.style.backgroundClip = 'text';
+            }
+            
+            // Nav Links
+            const navLinks = document.querySelectorAll('.nav-links a');
+            navLinks.forEach(link => {
+                link.style.setProperty('--link-gradient', `linear-gradient(135deg, ${palette.primary}, ${palette.secondary})`);
+                link.style.setProperty('--active-color', palette.primary);
+            });
+            
+            // Statistics
+            const stats = document.querySelectorAll('[style*="font-size: 2rem"]');
+            stats.forEach(stat => {
+                if (stat.parentElement && stat.parentElement.querySelector('div:last-child')) {
+                    stat.style.background = `linear-gradient(135deg, ${palette.primary}, ${palette.secondary})`;
+                    stat.style.webkitBackgroundClip = 'text';
+                    stat.style.backgroundClip = 'text';
+                }
+            });
+            
+            // Footer Hover
+            document.documentElement.style.setProperty('--footer-hover', palette.primary);
+            document.documentElement.style.setProperty('--social-hover', palette.primary);
+            
+            // Form Focus
+            document.documentElement.style.setProperty('--focus-color', palette.primary);
+            
+            // Icons
+            const icons = document.querySelectorAll('.fas, .far');
+            icons.forEach(icon => {
+                if (icon.parentElement && icon.parentElement.classList.contains('contact-info-item')) {
+                    icon.style.color = palette.primary;
+                }
+            });
+            
+            // Quote Icon
+            const quoteIcons = document.querySelectorAll('.quote-icon');
+            quoteIcons.forEach(icon => {
+                icon.style.background = `linear-gradient(135deg, ${palette.primary}, ${palette.secondary})`;
+                icon.style.webkitBackgroundClip = 'text';
+                icon.style.backgroundClip = 'text';
+            });
+            
+            // Client Avatars
+            const avatars = document.querySelectorAll('.client-avatar');
+            avatars.forEach(avatar => {
+                avatar.style.background = `linear-gradient(135deg, ${palette.primary}, ${palette.secondary})`;
+            });
+            
+            // Scrollbar
+            const style = document.createElement('style');
+            style.textContent = `
+                ::-webkit-scrollbar-thumb {
+                    background: linear-gradient(135deg, ${palette.primary}, ${palette.secondary});
+                }
+            `;
+            document.head.appendChild(style);
+            
+            // Service Card Hover
+            const serviceCards = document.querySelectorAll('.service-card');
+            serviceCards.forEach(card => {
+                card.style.setProperty('--card-gradient', `linear-gradient(135deg, ${palette.primary}, ${palette.secondary})`);
+            });
+            
+            // Store current palette
+            currentPalette = paletteIndex;
+        }
+        
+        // Random Color Generator
+        function randomColorPalette() {
+            const randomIndex = Math.floor(Math.random() * colorPalettes.length);
+            applyColorPalette(randomIndex);
+            
+            // Add animation effect
+            const btn = document.getElementById('colorPickerBtn');
+            btn.style.animation = 'none';
+            btn.offsetHeight; // Trigger reflow
+            btn.style.animation = 'fadeInUp 0.3s ease';
+        }
+        
+        // Auto-rotate colors every 10 seconds
+        let colorInterval = setInterval(() => {
+            randomColorPalette();
+        }, 10000);
+        
+        // Manual color change with button click
+        document.getElementById('colorPickerBtn').addEventListener('click', () => {
+            randomColorPalette();
+            // Reset timer
+            clearInterval(colorInterval);
+            colorInterval = setInterval(() => {
+                randomColorPalette();
+            }, 10000);
+        });
+        
+        // Services Data
+        const services = [
+            { icon: "fa-heartbeat", name: "Health Insurance", desc: "Comprehensive health coverage with AI-powered wellness programs", price: "From $199/mo", features: ["Virtual Care", "Preventive Care", "Mental Health"] },
+            { icon: "fa-life-ring", name: "Life Insurance", desc: "Secure your family's future with flexible life insurance plans", price: "From $25/mo", features: ["Term Life", "Whole Life", "Final Expense"] },
+            { icon: "fa-car", name: "Auto Insurance", desc: "Smart auto coverage with telematics and usage-based options", price: "From $65/mo", features: ["Liability", "Collision", "Roadside"] },
+            { icon: "fa-briefcase", name: "Business Insurance", desc: "Protect your business with comprehensive liability coverage", price: "Custom Quote", features: ["General Liability", "Workers Comp", "Cyber"] },
+            { icon: "fa-home", name: "Home Insurance", desc: "Full protection for your home and personal belongings", price: "From $85/mo", features: ["Property", "Liability", "Personal Items"] },
+            { icon: "fa-umbrella", name: "Umbrella Insurance", desc: "Extra liability protection beyond standard policies", price: "From $150/yr", features: ["Asset Protection", "Legal Defense", "High Limits"] }
+        ];
+        
+        // Render Services
+        function renderServices() {
+            const servicesGrid = document.getElementById('servicesGrid');
+            const fullServicesGrid = document.getElementById('fullServicesGrid');
+            
+            const serviceHTML = services.slice(0, 3).map(service => `
+                <div class="service-card" data-aos="fade-up">
+                    <div class="service-icon">
+                        <i class="fas ${service.icon}"></i>
+                    </div>
+                    <h3>${service.name}</h3>
+                    <p>${service.desc}</p>
+                    <div class="service-price">${service.price}</div>
+                </div>
+            `).join('');
+            
+            const fullServiceHTML = services.map(service => `
+                <div class="service-card" data-aos="fade-up">
+                    <div class="service-icon">
+                        <i class="fas ${service.icon}"></i>
+                    </div>
+                    <h3>${service.name}</h3>
+                    <p>${service.desc}</p>
+                    <div class="service-price">${service.price}</div>
+                </div>
+            `).join('');
+            
+            if (servicesGrid) servicesGrid.innerHTML = serviceHTML;
+            if (fullServicesGrid) fullServicesGrid.innerHTML = fullServiceHTML;
+        }
+        
+        // Testimonials Data
+        const testimonials = [
+            { name: "John D.", role: "Small Business Owner", text: "InsurancePro's AI-powered recommendations saved me 30% on business insurance. The process was seamless and the support team is exceptional!", rating: 5 },
+            { name: "Mary Thompson", role: "Healthcare Professional", text: "Finding health insurance for my family was stress-free. Their platform compared dozens of options and found the perfect plan for us.", rating: 5 },
+            { name: "Robert Chen", role: "Tech Entrepreneur", text: "The best insurance experience I've ever had. Fast, transparent, and they actually care about their clients. Highly recommended!", rating: 5 },
+            { name: "Lisa Martinez", role: "Homeowner", text: "Saved $400/year on home and auto bundle. The whole process took less than 15 minutes. Amazing service!", rating: 5 },
+            { name: "David Wilson", role: "Freelancer", text: "Finally, an insurance company that understands modern work. Flexible coverage options that actually fit my lifestyle.", rating: 5 },
+            { name: "Jennifer Taylor", role: "Parent", text: "The life insurance process was so simple. Their team made sure I understood everything and found coverage within my budget.", rating: 5 }
+        ];
+        
+        // Render Testimonials
+        function renderTestimonials() {
+            const testimonialsGrid = document.getElementById('testimonialsGrid');
+            if (testimonialsGrid) {
+                testimonialsGrid.innerHTML = testimonials.map(t => `
+                    <div class="testimonial-card" data-aos="fade-up">
+                        <i class="fas fa-quote-right quote-icon"></i>
+                        <div class="rating">${'★'.repeat(t.rating)}${'☆'.repeat(5-t.rating)}</div>
+                        <p class="testimonial-text">"${t.text}"</p>
+                        <div class="client-info">
+                            <div class="client-avatar">${t.name.charAt(0)}</div>
+                            <div class="client-details">
+                                <h4>${t.name}</h4>
+                                <p>${t.role}</p>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+        
+        // Page Navigation
+        function showPage(pageId) {
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+            
+            const activePage = document.getElementById(`${pageId}-page`);
+            if (activePage) activePage.classList.add('active');
+            
+            // Update active nav link
+            const navLinks = document.querySelectorAll('.nav-links a');
+            navLinks.forEach(link => link.classList.remove('active'));
+            if (event && event.target) event.target.classList.add('active');
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            // Close mobile menu
+            document.getElementById('navLinks')?.classList.remove('active');
+        }
+        
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+        
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+        
+        // Dynamic Fields for Quote Form
+        document.getElementById('insuranceType')?.addEventListener('change', function() {
+            const dynamicFields = document.getElementById('dynamicFields');
+            const type = this.value;
+            
+            let html = '';
+            if (type === 'Auto') {
+                html = `
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <div class="form-group">
+                            <label>Vehicle Year</label>
+                            <input type="text" id="vehicleYear">
+                        </div>
+                        <div class="form-group">
+                            <label>Vehicle Make</label>
+                            <input type="text" id="vehicleMake">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Vehicle Model</label>
+                        <input type="text" id="vehicleModel">
+                    </div>
+                `;
+            } else if (type === 'Health') {
+                html = `<div class="form-group"><label>Number of Family Members</label><input type="number" id="familyMembers"></div>`;
+            } else if (type === 'Business') {
+                html = `<div class="form-group"><label>Number of Employees</label><input type="number" id="employees"></div>`;
+            }
+            
+            dynamicFields.innerHTML = html;
+        });
+        
+        // Form Submissions
+        document.getElementById('quoteForm')?.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const alert = document.getElementById('quoteAlert');
+            alert.style.display = 'block';
+            alert.className = 'alert alert-success';
+            alert.innerHTML = '<i class="fas fa-check-circle"></i> Thank you! Your quote request has been received. Our AI will analyze your needs and contact you within 24 hours.';
+            alert.style.background = '#d4edda';
+            alert.style.color = '#155724';
+            alert.style.padding = '1rem';
+            alert.style.borderRadius = '0.5rem';
+            alert.style.marginBottom = '1rem';
+            
+            this.reset();
+            document.getElementById('dynamicFields').innerHTML = '';
+            
+            setTimeout(() => alert.style.display = 'none', 5000);
+        });
+        
+        document.getElementById('contactForm')?.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const alert = document.getElementById('contactAlert');
+            alert.style.display = 'block';
+            alert.className = 'alert alert-success';
+            alert.innerHTML = '<i class="fas fa-check-circle"></i> Thank you! Your message has been sent. We\'ll respond within 24 hours.';
+            alert.style.background = '#d4edda';
+            alert.style.color = '#155724';
+            alert.style.padding = '1rem';
+            alert.style.borderRadius = '0.5rem';
+            alert.style.marginBottom = '1rem';
+            
+            this.reset();
+            setTimeout(() => alert.style.display = 'none', 5000);
+        });
+        
         // Initialize
-        loadFromLocalStorage();
-        render();
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
+        });
+        
+        renderServices();
+        renderTestimonials();
+        
+        // Set default active page
+        document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+        document.getElementById('home-page').classList.add('active');
+        
+        // Apply first random color palette
+        setTimeout(() => {
+            randomColorPalette();
+        }, 100);
     </script>
+    
+    <style>
+        .page {
+            display: none;
+        }
+        .page.active {
+            display: block;
+        }
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .color-picker-btn {
+            animation: fadeInUp 0.5s ease;
+        }
+        
+        .color-picker-btn:hover {
+            transform: scale(1.1) rotate(15deg);
+        }
+    </style>
 </body>
 </html>
